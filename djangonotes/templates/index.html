@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="card shadow" id="notesCard">
+    <div class="card-header">
+        <div class="row row-cols-2">
+            <div class="col-11">
+                <h1>Notes</h1>
+            </div>
+            <div class="col-1">
+                <a href="{% url 'create_note' %}" style="font-size: 35px">
+                    <i class="bi bi-plus-lg text-primary"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        {% if notes %}
+        {% for note in notes %}
+            <div class="note-item row row-cols-2 mb-3">
+                <div class="col-11 note-content-col">
+                    <a href="{% url 'update_note' note.id %}">
+                        <div class="row row-cols-1">
+                            <div class="col">
+                                <span class="card-text">{{note.content}}</span>
+                            </div>
+                            <div class="col">
+                                {% if note.updated_at %}
+                                    <small class="card-text">{{note.updated_at|naturaltime}}</small>
+                                {% else %}
+                                    <small class="card-text">{{note.created_at|naturaltime}}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-1 d-flex align-items-center justify-content-center">
+                    <a href="{% url 'delete_note' note.id %}">
+                        <i class="bi bi-trash text-danger" style="font-size: 20px"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <b>Create Your First Note..</b>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

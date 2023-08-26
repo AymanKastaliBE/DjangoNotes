@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card shadow" id="notesCard">
+    <div class="card-header">
+        <h1>
+            Delete Note
+        </h1>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            <p>
+                Are you sure you want to delete '<b>{{note.content}}</b>' Note?
+            </p>
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a href="{% url 'index' %}" class="btn btn-light">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock content %}
